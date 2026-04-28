@@ -137,7 +137,7 @@ export default function MockupInteractive() {
                       <img 
                         src="/mi_mutual_letras_celestes_sin_fondo.png" 
                         alt="Mi Mutual" 
-                        className="h-4 w-auto opacity-70 grayscale hover:grayscale-0 transition-all duration-300"
+                        className="h-10 w-auto opacity-70 grayscale hover:grayscale-0 transition-all duration-300"
                         onError={(e) => {
                           e.currentTarget.style.display = 'none';
                           e.currentTarget.nextElementSibling?.classList.remove('hidden');

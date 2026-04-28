@@ -23,7 +23,7 @@ export default function StickyBar() {
     <div
       ref={ref}
       onClick={scrollToCTA}
-      className="fixed top-0 left-0 right-0 z-50 py-3 bg-amsar-deep flex items-center justify-center cursor-pointer hover:bg-amsar-mid transition-colors"
+      className="fixed top-0 left-0 right-0 z-50 pt-[14px] pb-[10px] bg-amsar-deep flex items-center justify-center cursor-pointer hover:bg-amsar-mid transition-colors"
     >
       <div className="flex items-center justify-center gap-2 text-white font-medium w-full px-4 mx-auto text-center">
         <MessageCircle className="w-[18px] h-[18px] text-white shrink-0" />
