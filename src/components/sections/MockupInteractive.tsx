@@ -63,10 +63,10 @@ export default function MockupInteractive() {
   return (
     <section
       ref={sectionRef}
-      className="min-h-screen bg-white flex items-center justify-center"
+      className="lg:min-h-screen bg-white flex items-center justify-center"
     >
       <div className="section-padding max-w-7xl mx-auto w-full">
-        <div className="text-center mb-10">
+        <div className="text-center mb-4 lg:mb-10">
           <div className="inline-flex items-center gap-2 bg-amsar-cyan/10 text-amsar-cyan text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
             <span className="w-2 h-2 rounded-full bg-amsar-cyan animate-pulse" />
             {logoErr ? (
@@ -83,10 +83,10 @@ export default function MockupInteractive() {
           <h2>La app que cambia tu forma de cuidarte</h2>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-4 lg:gap-12 items-center">
           {/* Phone mockup */}
           <div className="flex justify-center">
-            <div className="relative w-[260px] h-[520px] sm:w-[280px] sm:h-[560px]">
+            <div className="relative w-[210px] h-[420px] sm:w-[260px] sm:h-[520px] lg:w-[280px] lg:h-[560px]">
               <div className="absolute -inset-6 bg-amsar-cyan/15 blur-3xl rounded-full" />
 
               <div className="relative w-full h-full bg-amsar-deep rounded-[2.5rem] p-2.5 shadow-deep">
@@ -120,7 +120,7 @@ export default function MockupInteractive() {
                         key={screen.title}
                         className="overflow-hidden transition-all duration-700 ease-out"
                         style={{
-                          maxHeight: i <= activeIndex ? "140px" : "0px",
+                          maxHeight: i <= activeIndex ? (window.innerWidth < 640 ? "108px" : "140px") : "0px",
                           opacity: i <= activeIndex ? 1 : 0,
                           transform: i <= activeIndex ? "translateY(0)" : "translateY(12px)",
                         }}
@@ -158,7 +158,7 @@ export default function MockupInteractive() {
           </div>
 
           {/* Text side */}
-          <div className="relative h-56 lg:h-64">
+          <div className="relative h-36 lg:h-64">
             {screens.map((screen, i) => (
               <div
                 key={screen.title}
