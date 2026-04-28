@@ -40,12 +40,18 @@ export default function MockupInteractive() {
     const onScroll = () => {
       const rect = section.getBoundingClientRect();
       const vh = window.innerHeight;
-      // progress: 0 when section top hits 70% viewport, 1 when section bottom hits 30%
+      const isMobile = window.innerWidth < 768;
+      // Mobile: start earlier (90% vh) and compress the scroll range so screens
+      // change while the phone is still visible on screen.
+      const startFactor = isMobile ? 0.9 : 0.7;
+      const rangeFactor = isMobile ? 0.15 : 0.4;
       const progress = Math.max(0, Math.min(1,
-        (vh * 0.7 - rect.top) / (rect.height + vh * 0.4)
+        (vh * startFactor - rect.top) / (rect.height + vh * rangeFactor)
       ));
-      if (progress < 0.33) setActiveIndex(0);
-      else if (progress < 0.66) setActiveIndex(1);
+      const t1 = isMobile ? 0.25 : 0.33;
+      const t2 = isMobile ? 0.5  : 0.66;
+      if (progress < t1) setActiveIndex(0);
+      else if (progress < t2) setActiveIndex(1);
       else setActiveIndex(2);
     };
 
