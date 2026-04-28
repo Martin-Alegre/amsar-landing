@@ -140,8 +140,10 @@ export default function MockupInteractive() {
                         className="h-4 w-auto opacity-70 grayscale hover:grayscale-0 transition-all duration-300"
                         onError={(e) => {
                           e.currentTarget.style.display = 'none';
+                          e.currentTarget.nextElementSibling?.classList.remove('hidden');
                         }}
                       />
+                      <span className="hidden text-[10px] font-bold text-slate-400">Mi Mutual</span>
                     </div>
                   </div>
                 </div>
