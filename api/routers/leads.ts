@@ -12,34 +12,40 @@ export const leadsRouter = createRouter({
         throw new Error("Spam detected");
       }
 
-      const db = getDb();
-      
-      const result = await db.insert(leads).values({
-        nombre: input.nombre,
-        telefono: input.telefono,
-        email: input.email,
-        edad: input.edad,
-        categoriaMonotributo: input.categoriaMonotributo || null,
-        provincia: input.provincia || null,
-        source: input.source || "landing",
-        utmSource: input.utmSource || null,
-        utmMedium: input.utmMedium || null,
-        utmCampaign: input.utmCampaign || null,
-      });
-
-      // Webhook trigger to n8n (optional, fires async)
+      // Fire webhook to n8n (primary path — works without DB)
       const webhookUrl = process.env.N8N_WEBHOOK_URL;
       if (webhookUrl) {
-        fetch(webhookUrl, {
+        await fetch(webhookUrl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(input),
-        }).catch(() => {});
+        });
+      }
+
+      // DB insert is secondary — skip gracefully if DATABASE_URL is not configured
+      let insertId = 0;
+      if (process.env.DATABASE_URL) {
+        try {
+          const db = getDb();
+          const result = await db.insert(leads).values({
+            nombre: input.nombre,
+            telefono: input.telefono,
+            email: input.email,
+            edad: input.edad,
+            categoriaMonotributo: input.categoriaMonotributo || null,
+            provincia: input.provincia || null,
+            source: input.source || "landing",
+            utmSource: input.utmSource || null,
+            utmMedium: input.utmMedium || null,
+            utmCampaign: input.utmCampaign || null,
+          });
+          insertId = Number(result[0].insertId);
+        } catch (_) {}
       }
 
       return {
         success: true,
-        id: Number(result[0].insertId),
+        id: insertId,
         redirectUrl: `https://wa.me/5491173719197?text=Hola%2C%20vi%20la%20web%20y%20quiero%20info%20de%20Amsar%20-%20Me%20llamo%20${encodeURIComponent(input.nombre)}`,
       };
     }),
