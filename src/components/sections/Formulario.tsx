@@ -3,8 +3,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MessageCircle, Loader2, CheckCircle2 } from "lucide-react";
 import { leadSchema, type LeadInput } from "@contracts/leads";
-import { trpc } from "@/providers/trpc";
 import confetti from "canvas-confetti";
+
+const WEBHOOK_URL = import.meta.env.VITE_WEBHOOK_URL as string;
 
 const provincias = [
   "Buenos Aires", "CABA", "Catamarca", "Chaco", "Chubut", "Córdoba", "Corrientes",
@@ -19,7 +20,9 @@ const categorias = [
 
 export default function Formulario() {
   const [submitted, setSubmitted] = useState(false);
-  const [redirectUrl, setRedirectUrl] = useState("");
+  const [isPending, setIsPending] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [submittedName, setSubmittedName] = useState("");
 
   const {
     register,
@@ -33,10 +36,32 @@ export default function Formulario() {
     },
   });
 
-  const mutation = trpc.leads.create.useMutation({
-    onSuccess: (data) => {
+  const onSubmit = async (data: LeadInput) => {
+    if (data.honeypot && data.honeypot.length > 0) return;
+
+    setIsPending(true);
+    setSubmitError("");
+
+    try {
+      const res = await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre: data.nombre,
+          telefono: data.telefono,
+          email: data.email,
+          edad: data.edad,
+          categoriaMonotributo: data.categoriaMonotributo || null,
+          provincia: data.provincia || null,
+          acceptComms: data.acceptComms,
+          source: "landing",
+        }),
+      });
+
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      setSubmittedName(data.nombre);
       setSubmitted(true);
-      setRedirectUrl(data.redirectUrl);
       confetti({
         particleCount: 50,
         spread: 60,
@@ -45,14 +70,14 @@ export default function Formulario() {
         gravity: 0.8,
         ticks: 150,
       });
-      setTimeout(() => {
-        window.location.href = data.redirectUrl;
-      }, 2000);
-    },
-  });
 
-  const onSubmit = (data: LeadInput) => {
-    mutation.mutate(data);
+      const waUrl = `https://wa.me/5491173719197?text=Hola%2C%20vi%20la%20web%20y%20quiero%20info%20de%20Amsar%20-%20Me%20llamo%20${encodeURIComponent(data.nombre)}`;
+      setTimeout(() => { window.location.href = waUrl; }, 2000);
+    } catch (err) {
+      setSubmitError("Hubo un error al enviar. Intentá de nuevo o escribinos por WhatsApp.");
+    } finally {
+      setIsPending(false);
+    }
   };
 
   if (submitted) {
@@ -61,13 +86,13 @@ export default function Formulario() {
         <div className="section-padding max-w-xl mx-auto text-center">
           <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto mb-4" />
           <h3 className="text-2xl font-semibold text-amsar-deep mb-3">
-            ¡Gracias, {mutation.variables?.nombre}!
+            ¡Gracias, {submittedName}!
           </h3>
           <p className="text-slate-600 mb-6">
             Te estamos redirigiendo a WhatsApp para que hables con nosotros...
           </p>
           <a
-            href={redirectUrl}
+            href={`https://wa.me/5491173719197?text=Hola%2C%20vi%20la%20web%20y%20quiero%20info%20de%20Amsar%20-%20Me%20llamo%20${encodeURIComponent(submittedName)}`}
             className="btn-wa inline-flex"
           >
             <MessageCircle className="w-5 h-5" />
@@ -221,12 +246,16 @@ export default function Formulario() {
                 <p className="text-red-500 text-sm">{errors.acceptComms.message}</p>
               )}
 
+              {submitError && (
+                <p className="text-red-500 text-sm text-center">{submitError}</p>
+              )}
+
               <button
                 type="submit"
-                disabled={mutation.isPending}
+                disabled={isPending}
                 className="w-full btn-wa justify-center disabled:opacity-70"
               >
-                {mutation.isPending ? (
+                {isPending ? (
                   <>
                     <Loader2 className="w-5 h-5 animate-spin" />
                     Enviando...
