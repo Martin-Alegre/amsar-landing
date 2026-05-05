@@ -71,8 +71,6 @@ export default function Formulario() {
         ticks: 150,
       });
 
-      const waUrl = `https://wa.me/5491173719197?text=Hola%2C%20vi%20la%20web%20y%20quiero%20info%20de%20Amsar%20-%20Me%20llamo%20${encodeURIComponent(data.nombre)}`;
-      setTimeout(() => { window.location.href = waUrl; }, 2000);
     } catch (err) {
       setSubmitError("Hubo un error al enviar. Intentá de nuevo o escribinos por WhatsApp.");
     } finally {
@@ -88,16 +86,16 @@ export default function Formulario() {
           <h3 className="text-2xl font-semibold text-amsar-deep mb-3">
             ¡Gracias, {submittedName}!
           </h3>
-          <p className="text-slate-600 mb-6">
-            Te estamos redirigiendo a WhatsApp para que hables con nosotros...
+          <p className="text-slate-600 mb-8">
+            Nos contactaremos pronto para confirmar tu afiliación.
           </p>
-          <a
-            href={`https://wa.me/5491173719197?text=Hola%2C%20vi%20la%20web%20y%20quiero%20info%20de%20Amsar%20-%20Me%20llamo%20${encodeURIComponent(submittedName)}`}
-            className="btn-wa inline-flex"
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all"
+            style={{ backgroundColor: "#25D366" }}
           >
-            <MessageCircle className="w-5 h-5" />
-            Ir a WhatsApp ahora
-          </a>
+            Volver al inicio
+          </button>
         </div>
       </section>
     );
