@@ -264,6 +264,14 @@ export default function CTAFooter() {
               Obra social de monotributistas — Mat. INSSSEP
             </p>
           </div>
+
+          <div className="recaptcha-attribution">
+            🛡️ Protegido por reCAPTCHA ·{' '}
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacidad</a>{' '}
+            y{' '}
+            <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Términos</a>{' '}
+            de Google
+          </div>
         </div>
       </footer>
 

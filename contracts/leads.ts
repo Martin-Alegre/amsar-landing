@@ -3,7 +3,9 @@ import { z } from "zod";
 export const leadSchema = z.object({
   nombre: z.string().min(2, "El nombre es requerido").max(255),
   telefono: z.string().regex(/^(?:(?:00)?549?)?0?(?:11|[2368]\d)(?:(?=\d{0,2}15)\d{2})??\d{8}$/, "Ingresá un número válido de Argentina"),
-  email: z.string().email("Email inválido"),
+  email: z.string()
+    .min(1, "El email es obligatorio")
+    .email("Ingresá un email válido (ej: nombre@dominio.com)"),
   edad: z.number().int().min(18, "Debes ser mayor de 18").max(65, "Edad máxima 65 años"),
   categoriaMonotributo: z.string().optional(),
   provincia: z.string().optional(),

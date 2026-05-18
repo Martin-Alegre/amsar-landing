@@ -179,6 +179,7 @@ export default function Formulario() {
                 <input
                   {...register("email")}
                   type="email"
+                  required
                   className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-amsar-cyan focus:ring-2 focus:ring-amsar-cyan/20 outline-none transition-all"
                   placeholder="tu@email.com"
                 />
@@ -272,6 +273,13 @@ export default function Formulario() {
                   </>
                 )}
               </button>
+
+              <div className="submit-disclaimer">
+                al enviar aceptás que protegemos tu envío con reCAPTCHA ·{' '}
+                <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">privacidad</a>{' '}
+                ·{' '}
+                <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">términos</a>
+              </div>
 
               <p className="text-xs text-slate-500 text-center">
                 Tus datos son privados. No los compartimos con nadie. Solo los usamos para contactarte.
