@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { MessageCircle, Loader2, CheckCircle2 } from "lucide-react";
 import { leadSchema, type LeadInput } from "@contracts/leads";
 import confetti from "canvas-confetti";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 const WEBHOOK_URL = import.meta.env.VITE_WEBHOOK_URL as string;
 
@@ -19,6 +20,7 @@ const categorias = [
 ];
 
 export default function Formulario() {
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const [submitted, setSubmitted] = useState(false);
   const [isPending, setIsPending] = useState(false);
   const [submitError, setSubmitError] = useState("");
@@ -43,6 +45,10 @@ export default function Formulario() {
     setSubmitError("");
 
     try {
+      const recaptchaToken = executeRecaptcha
+        ? await executeRecaptcha("amsar_form_submit")
+        : undefined;
+
       const res = await fetch(WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -55,6 +61,7 @@ export default function Formulario() {
           provincia: data.provincia || null,
           acceptComms: data.acceptComms,
           source: "landing",
+          recaptchaToken,
         }),
       });
 

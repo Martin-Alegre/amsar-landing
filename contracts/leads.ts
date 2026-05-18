@@ -13,6 +13,7 @@ export const leadSchema = z.object({
   utmSource: z.string().optional(),
   utmMedium: z.string().optional(),
   utmCampaign: z.string().optional(),
+  recaptchaToken: z.string().optional(),
 });
 
 export type LeadInput = z.infer<typeof leadSchema>;
