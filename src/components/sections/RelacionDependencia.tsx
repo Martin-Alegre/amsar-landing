@@ -155,7 +155,7 @@ export default function RelacionDependencia() {
           <div className="flex justify-center">
             <a
               ref={ctaBtnRef}
-              href="https://wa.me/5491178213869?text=Hola%20Amsar%20%F0%9F%91%8B%20Estoy%20en%20relaci%C3%B3n%20de%20dependencia%20y%20quiero%20pasar%20mi%20obra%20social%20a%20Amsar.%20%C2%BFMe%20ayudan%3F"
+              href="https://wa.me/5491178213869?text=Hola%20Amsar%20%F0%9F%91%8B%20Estoy%20en%20relaci%C3%B3n%20de%20dependencia%20y%20quiero%20derivar%20mis%20aportes%20a%20Amsar.%20%C2%BFMe%20ayudan%3F"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-wa text-base sm:text-lg px-8 py-4 inline-flex"

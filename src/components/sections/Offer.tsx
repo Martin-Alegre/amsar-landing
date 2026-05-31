@@ -12,7 +12,7 @@ const items = [
   "Acceso a +1.000 comercios adheridos con descuentos reales.",
   "WhatsApp con personas reales del equipo comercial.",
   "Comunidad de monotributistas activa.",
-  "Cero copagos sorpresa, cero letra chica.",
+  "Posibilidad de adaptar tu plan a coberturas mejoradas.",
 ];
 
 export default function Offer() {
