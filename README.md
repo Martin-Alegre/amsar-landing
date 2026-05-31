@@ -70,5 +70,14 @@ Copiar `.env.example` a `.env` y completar:
 
 ## Contacto
 
-- WhatsApp: +54 9 11 7371-9197
+- WhatsApp: +54 9 11 7821-3869
+- Email: amsar.crm@gmail.com
 - Web: https://amsarsalud.com.ar
+
+## Cambios recientes
+
+- **WhatsApp actualizado**: nuevo número +54 9 11 7821-3869 en todos los links y textos legales.
+- **Email actualizado**: amsar.crm@gmail.com reemplaza al anterior en todo el sitio y textos legales.
+- **Facebook**: ícono/link de Facebook agregado al footer junto a Instagram y WhatsApp.
+- **Sección "Relación de dependencia"** (`#relacion-dependencia`): nueva sección ubicada después de Testimonios, con CTA de WhatsApp y mensaje pre-cargado. Enlace sutil también en el hero.
+- **FAQ**: 2 preguntas nuevas sobre relación de dependencia y costos de traspaso.

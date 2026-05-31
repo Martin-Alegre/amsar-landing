@@ -88,13 +88,13 @@ export default function Offer() {
           <div className="bg-slate-50 rounded-xl p-5 mb-8 flex items-start gap-3 border border-slate-100">
             <Shield className="w-5 h-5 text-amsar-cyan shrink-0 mt-0.5" />
             <p className="text-sm text-slate-600">
-              <strong>Compromiso de respuesta:</strong> Si no te respondemos en 1 hora hábil, avisanos vos a nosotros y revisamos qué pasó.
+              <strong>Compromiso de respuesta:</strong> Te respondemos en menos de 1 hora hábil, siempre con una persona real del equipo. Sin bots, sin esperas eternas.
             </p>
           </div>
 
           <div className="text-center">
             <a
-              href="https://wa.me/5491173719197?text=Hola%2C%20quiero%20empezar%20mi%20afiliaci%C3%B3n%20a%20Amsar"
+              href="https://wa.me/5491178213869?text=Hola%2C%20quiero%20empezar%20mi%20afiliaci%C3%B3n%20a%20Amsar"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-wa text-lg px-10 py-5 inline-flex"

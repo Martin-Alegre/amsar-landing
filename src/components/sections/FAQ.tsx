@@ -13,15 +13,11 @@ const faqs = [
   },
   {
     q: "¿Cómo me afilio?",
-    a: "Nos hablás por WhatsApp, te pasamos el link de afiliación, lo completás en 5 minutos. Listo. Te llega el alta en 48 hs hábiles.",
+    a: "Nos escribís por WhatsApp y una persona del equipo te guía en todo el proceso de afiliación, de forma simple y segura.",
   },
   {
     q: "¿Tengo que cambiar de obra social?",
     a: "Sí, hacés el traspaso. Es un trámite simple, te guiamos paso a paso por WhatsApp.",
-  },
-  {
-    q: "¿Qué pasa si tengo una preexistencia?",
-    a: "Hoy estamos enfocados en monotributistas sin preexistencias. Igual escribinos por WhatsApp y te orientamos sobre opciones.",
   },
   {
     q: "¿La telemedicina sirve para todo?",
@@ -37,7 +33,15 @@ const faqs = [
   },
   {
     q: "¿Qué pasa si no me responden?",
-    a: "Nuestro compromiso es responder en menos de 1 hora hábil. Si no pasa, te pedimos que nos avises directo y revisamos qué falló.",
+    a: "No te va a pasar: respondemos en menos de 1 hora hábil y siempre te atiende una persona real del equipo, nunca un bot.",
+  },
+  {
+    q: "¿Estoy en relación de dependencia, me puedo afiliar?",
+    a: "Sí. Si ya tenés obra social por tu trabajo, podés derivar tus aportes a Amsar, sin costo extra. Escribinos por WhatsApp y te gestionamos el traspaso.",
+  },
+  {
+    q: "¿Tiene algún costo extra pasarme a Amsar?",
+    a: "No. Derivás los aportes que ya hacés, sin costo adicional.",
   },
 ];
 

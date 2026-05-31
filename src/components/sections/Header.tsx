@@ -69,7 +69,7 @@ export default function Header() {
 
         <div className="flex items-center gap-4">
           <a
-            href="https://wa.me/5491173719197?text=Hola%2C%20vi%20la%20web%20y%20quiero%20info%20de%20Amsar"
+            href="https://wa.me/5491178213869?text=Hola%2C%20vi%20la%20web%20y%20quiero%20info%20de%20Amsar"
             target="_blank"
             rel="noopener noreferrer"
             className="hidden sm:inline-flex btn-wa text-sm py-2.5 px-4"
@@ -105,7 +105,7 @@ export default function Header() {
               </button>
             ))}
             <a
-              href="https://wa.me/5491173719197?text=Hola%2C%20vi%20la%20web%20y%20quiero%20info%20de%20Amsar"
+              href="https://wa.me/5491178213869?text=Hola%2C%20vi%20la%20web%20y%20quiero%20info%20de%20Amsar"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-wa text-sm justify-center mt-2"

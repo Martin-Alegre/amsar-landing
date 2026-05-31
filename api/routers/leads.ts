@@ -46,7 +46,7 @@ export const leadsRouter = createRouter({
       return {
         success: true,
         id: insertId,
-        redirectUrl: `https://wa.me/5491173719197?text=Hola%2C%20vi%20la%20web%20y%20quiero%20info%20de%20Amsar%20-%20Me%20llamo%20${encodeURIComponent(input.nombre)}`,
+        redirectUrl: `https://wa.me/5491178213869?text=Hola%2C%20vi%20la%20web%20y%20quiero%20info%20de%20Amsar%20-%20Me%20llamo%20${encodeURIComponent(input.nombre)}`,
       };
     }),
 });

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { MessageCircle, Instagram, Scale, Shield, UserCheck, ChevronDown } from "lucide-react";
+import { MessageCircle, Instagram, Facebook, Scale, Shield, UserCheck, ChevronDown } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -21,7 +21,7 @@ Los enlaces a sitios de terceros son provistos a modo informativo. Amsar Salud n
 
 La información de contacto proporcionada en formularios será utilizada exclusivamente para gestionar tu consulta o afiliación.
 
-Para consultas sobre términos y condiciones de la cobertura médica, comunicarse con nuestro equipo: info@amsarsalud.com.ar`,
+Para consultas sobre términos y condiciones de la cobertura médica, comunicarse con nuestro equipo: amsar.crm@gmail.com`,
   },
   {
     id: "privacidad",
@@ -38,7 +38,7 @@ Tus datos no serán vendidos, cedidos ni compartidos con terceros sin tu consent
 
 Utilizamos cookies técnicas para el funcionamiento del sitio. No utilizamos cookies de rastreo publicitario sin tu consentimiento.
 
-Tenés derecho a acceder, rectificar, actualizar y suprimir tus datos en cualquier momento. Para ejercer estos derechos, escribinos a: info@amsarsalud.com.ar
+Tenés derecho a acceder, rectificar, actualizar y suprimir tus datos en cualquier momento. Para ejercer estos derechos, escribinos a: amsar.crm@gmail.com
 
 El titular del sitio es Amsar Salud. La información es tratada con medidas de seguridad técnicas y organizativas adecuadas para proteger tus datos.`,
   },
@@ -51,7 +51,7 @@ El titular del sitio es Amsar Salud. La información es tratada con medidas de s
 Tenés derecho a recibir información clara, veraz y detallada sobre los servicios ofrecidos antes de cualquier contratación.
 
 Ante cualquier inconveniente o disconformidad con nuestro servicio, podés:
-• Contactarnos directamente: WhatsApp +54 9 11 7371-9197 o info@amsarsalud.com.ar.
+• Contactarnos directamente: WhatsApp +54 9 11 7821-3869 o amsar.crm@gmail.com.
 • Presentar un reclamo ante la Dirección Nacional de Defensa del Consumidor.
 • Acceder al sistema nacional de arbitraje de consumo.
 
@@ -59,7 +59,7 @@ Nuestro compromiso de respuesta es de 1 hora hábil para consultas recibidas por
 
 La afiliación no genera costos ocultos. Cualquier modificación en los planes será notificada con la anticipación requerida por ley.
 
-Para ejercer tus derechos como consumidor o presentar una queja formal, escribinos a: info@amsarsalud.com.ar`,
+Para ejercer tus derechos como consumidor o presentar una queja formal, escribinos a: amsar.crm@gmail.com`,
   },
 ];
 
@@ -144,7 +144,7 @@ export default function CTAFooter() {
             Atención humana real. En minutos.
           </p>
           <a
-            href="https://wa.me/5491173719197?text=Hola%2C%20tengo%20una%20consulta%20sobre%20Amsar"
+            href="https://wa.me/5491178213869?text=Hola%2C%20tengo%20una%20consulta%20sobre%20Amsar"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-wa text-lg px-10 py-5 inline-flex"
@@ -188,13 +188,22 @@ export default function CTAFooter() {
                   <Instagram className="w-4 h-4 text-white" />
                 </a>
                 <a
-                  href="https://wa.me/5491173719197"
+                  href="https://wa.me/5491178213869"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-wa-green/20 flex items-center justify-center hover:bg-wa-green/30 transition-colors"
+                  className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
                   aria-label="WhatsApp de Amsar"
                 >
-                  <MessageCircle className="w-4 h-4 text-wa-green" />
+                  <MessageCircle className="w-4 h-4 text-white" />
+                </a>
+                <a
+                  href="https://www.facebook.com/profile.php?id=61590270910303"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+                  aria-label="Facebook de Amsar"
+                >
+                  <Facebook className="w-4 h-4 text-white" />
                 </a>
               </div>
             </div>
@@ -243,25 +252,22 @@ export default function CTAFooter() {
               <ul className="space-y-3 text-sm text-white/60">
                 <li>
                   <a
-                    href="https://wa.me/5491173719197"
+                    href="https://wa.me/5491178213869"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-white transition-colors"
                   >
-                    WhatsApp: +54 9 11 7371-9197
+                    WhatsApp: +54 9 11 7821-3869
                   </a>
                 </li>
-                <li>Email: info@amsarsalud.com.ar</li>
+                <li>Email: amsar.crm@gmail.com</li>
               </ul>
             </div>
           </div>
 
-          <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-white/40 text-sm">
-              © 2026 Amsar Salud. Todos los derechos reservados.
-            </p>
-            <p className="text-white/40 text-sm">
-              Obra social de monotributistas — Mat. INSSSEP
+          <div className="border-t border-white/10 pt-6 flex justify-center items-center">
+            <p className="text-white/40 text-sm text-center">
+              © 2026 AMSAR — Asociación Mutual de Servicios Asistenciales Regionales. Todos los derechos reservados.
             </p>
           </div>
 
@@ -277,7 +283,7 @@ export default function CTAFooter() {
 
       {/* Floating WhatsApp */}
       <a
-        href="https://wa.me/5491173719197?text=Hola%2C%20vi%20la%20web%20y%20quiero%20info%20de%20Amsar"
+        href="https://wa.me/5491178213869?text=Hola%2C%20vi%20la%20web%20y%20quiero%20info%20de%20Amsar"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-wa-green rounded-full flex items-center justify-center shadow-deep hover:scale-110 transition-transform"

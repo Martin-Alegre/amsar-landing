@@ -199,9 +199,9 @@ export default function Hero() {
             Hecho para monotributistas como vos.
           </p>
 
-          <div ref={ctaRef} className="flex flex-wrap items-center gap-4 mb-12">
+          <div ref={ctaRef} className="flex flex-wrap items-center gap-4 mb-4">
             <a
-              href="https://wa.me/5491173719197?text=Hola%2C%20vi%20la%20web%20y%20quiero%20info%20de%20Amsar"
+              href="https://wa.me/5491178213869?text=Hola%2C%20vi%20la%20web%20y%20quiero%20info%20de%20Amsar"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-wa text-base sm:text-lg px-8 py-4"
@@ -216,6 +216,14 @@ export default function Hero() {
               Ver cómo funciona
               <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
             </button>
+          </div>
+          <div className="mb-8">
+            <a
+              href="#relacion-dependencia"
+              className="text-white/50 hover:text-white/80 transition-colors text-xs"
+            >
+              ¿En relación de dependencia? También podés →
+            </a>
           </div>
 
           <div

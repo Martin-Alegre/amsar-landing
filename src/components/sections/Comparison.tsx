@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, Fragment } from "react";
 import { Check, X } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -18,27 +18,33 @@ const rows = [
 export default function Comparison() {
   const sectionRef = useRef<HTMLElement>(null);
   const tableRef = useRef<HTMLDivElement>(null);
+  const mobileRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
 
   useEffect(() => {
     if (reduced || !sectionRef.current) return;
 
+    const animRows = (container: HTMLDivElement | null) => {
+      if (!container) return;
+      const items = container.querySelectorAll(".comp-row");
+      if (!items.length) return;
+      gsap.from(items, {
+        y: 20,
+        opacity: 0,
+        duration: 0.5,
+        stagger: 0.08,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: container,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      });
+    };
+
     const ctx = gsap.context(() => {
-      const rows = tableRef.current?.querySelectorAll(".comp-row");
-      if (rows) {
-        gsap.from(rows, {
-          y: 20,
-          opacity: 0,
-          duration: 0.5,
-          stagger: 0.08,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: tableRef.current,
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        });
-      }
+      animRows(tableRef.current);
+      animRows(mobileRef.current);
     }, sectionRef);
 
     return () => ctx.revert();
@@ -70,7 +76,7 @@ export default function Comparison() {
 
             {/* Rows */}
             {rows.map((row) => (
-              <>
+              <Fragment key={row.feature}>
                 <div className="comp-row bg-white p-4 text-sm font-medium text-amsar-deep flex items-center">
                   {row.feature}
                 </div>
@@ -91,13 +97,13 @@ export default function Comparison() {
                     <X className="w-5 h-5 text-slate-300" />
                   )}
                 </div>
-              </>
+              </Fragment>
             ))}
           </div>
         </div>
 
         {/* Mobile cards */}
-        <div className="md:hidden space-y-4">
+        <div ref={mobileRef} className="md:hidden space-y-4">
           {rows.map((row) => (
             <div
               key={row.feature}

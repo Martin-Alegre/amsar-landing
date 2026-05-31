@@ -165,7 +165,7 @@ export default function Formulario() {
                 <input
                   {...register("telefono")}
                   className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-amsar-cyan focus:ring-2 focus:ring-amsar-cyan/20 outline-none transition-all"
-                  placeholder="Ej: 11 7371-9197"
+                  placeholder="Ej: 11 7821-3869"
                 />
                 {errors.telefono && (
                   <p className="text-red-500 text-sm mt-1">{errors.telefono.message}</p>

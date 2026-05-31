@@ -8,6 +8,7 @@ import Benefits from "@/components/sections/Benefits";
 import Comparison from "@/components/sections/Comparison";
 import MockupInteractive from "@/components/sections/MockupInteractive";
 import Testimonials from "@/components/sections/Testimonials";
+import RelacionDependencia from "@/components/sections/RelacionDependencia";
 import Offer from "@/components/sections/Offer";
 import Formulario from "@/components/sections/Formulario";
 import FAQ from "@/components/sections/FAQ";
@@ -27,6 +28,7 @@ export default function Home() {
       <Comparison />
       <MockupInteractive />
       <Testimonials />
+      <RelacionDependencia />
       <Offer />
       <Formulario />
       <FAQ />

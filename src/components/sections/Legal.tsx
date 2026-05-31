@@ -21,7 +21,7 @@ Los enlaces a sitios de terceros son provistos a modo informativo. Amsar Salud n
 
 La información de contacto proporcionada en formularios será utilizada exclusivamente para gestionar tu consulta o afiliación.
 
-Para consultas sobre términos y condiciones de la cobertura médica, comunicarse con nuestro equipo: info@amsarsalud.com.ar`,
+Para consultas sobre términos y condiciones de la cobertura médica, comunicarse con nuestro equipo: amsar.crm@gmail.com`,
   },
   {
     id: "privacidad",
@@ -38,7 +38,7 @@ Tus datos no serán vendidos, cedidos ni compartidos con terceros sin tu consent
 
 Utilizamos cookies técnicas para el funcionamiento del sitio. No utilizamos cookies de rastreo publicitario sin tu consentimiento.
 
-Tenés derecho a acceder, rectificar, actualizar y suprimir tus datos en cualquier momento. Para ejercer estos derechos, escribinos a: info@amsarsalud.com.ar
+Tenés derecho a acceder, rectificar, actualizar y suprimir tus datos en cualquier momento. Para ejercer estos derechos, escribinos a: amsar.crm@gmail.com
 
 El titular del sitio es Amsar Salud. La información es tratada con medidas de seguridad técnicas y organizativas adecuadas para proteger tus datos.`,
   },
@@ -51,7 +51,7 @@ El titular del sitio es Amsar Salud. La información es tratada con medidas de s
 Tenés derecho a recibir información clara, veraz y detallada sobre los servicios ofrecidos antes de cualquier contratación.
 
 Ante cualquier inconveniente o disconformidad con nuestro servicio, podés:
-• Contactarnos directamente: WhatsApp +54 9 11 7371-9197 o info@amsarsalud.com.ar.
+• Contactarnos directamente: WhatsApp +54 9 11 7821-3869 o amsar.crm@gmail.com.
 • Presentar un reclamo ante la Dirección Nacional de Defensa del Consumidor.
 • Acceder al sistema nacional de arbitraje de consumo.
 
@@ -59,7 +59,7 @@ Nuestro compromiso de respuesta es de 1 hora hábil para consultas recibidas por
 
 La afiliación no genera costos ocultos. Cualquier modificación en los planes será notificada con la anticipación requerida por ley.
 
-Para ejercer tus derechos como consumidor o presentar una queja formal, escribinos a: info@amsarsalud.com.ar`,
+Para ejercer tus derechos como consumidor o presentar una queja formal, escribinos a: amsar.crm@gmail.com`,
   },
 ];
 
