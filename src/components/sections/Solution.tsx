@@ -77,7 +77,7 @@ export default function Solution() {
     >
       <div className="section-padding max-w-7xl mx-auto">
         <div className="text-center mb-12 lg:mb-16">
-          <h2 className="mb-4">Por eso existe Amsar.</h2>
+          <h2 className="mb-4">Por eso existe Amsar</h2>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
             La primera obra social pensada para cómo trabajás vos. No para cómo trabajan ellos.
           </p>
