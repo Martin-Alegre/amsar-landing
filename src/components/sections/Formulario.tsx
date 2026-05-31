@@ -118,11 +118,11 @@ export default function Formulario() {
               ¿Preferís que te contactemos nosotros?
             </h2>
             <p className="text-lg text-slate-600 mb-8">
-              Dejanos tus datos y te escribimos por WhatsApp en menos de 1 hora.
+              Dejanos tus datos y te contactamos por WhatsApp. Te atiende una persona real, sin vueltas.
             </p>
             <ul className="space-y-4">
               {[
-                "Te respondemos por WhatsApp en menos de 1 hora",
+                "Respuesta rápida, normalmente en menos de 1 hora",
                 "Te explicamos todo sin presión",
                 "Te guiamos paso a paso en la afiliación",
               ].map((item) => (
