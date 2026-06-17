@@ -63,7 +63,10 @@ jobs:
           protocol: ftps
           port: 21
           local-dir: ./dist/public/
-          server-dir: public_html/
+          # La cuenta FTP ya entra en el document root (Hostinger "Folder to upload
+          # files: public_html"). Por eso server-dir es ./ — usar public_html/ creaba
+          # un public_html/public_html anidado que NO se servía.
+          server-dir: ./
           # Sin dangerous-clean-slate: evita downtime. El state-file gestiona altas/bajas.
           exclude: |
             **/.git*
