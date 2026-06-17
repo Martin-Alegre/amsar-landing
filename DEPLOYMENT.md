@@ -1,59 +1,73 @@
 # Despliegue — AMSAR Salud
 
-Deploy **automático** de la landing a Hostinger. **No hay uploads manuales.**
+Deploy **automático** de la landing a Hostinger. **No hay uploads manuales** ni Git Auto Deploy de Hostinger.
 
 ## Flujo
 
 ```
-push a main  →  GitHub Actions  →  npm ci  →  npm run build  →  verificación
-            →  deploy FTPS a /public_html  →  verificación del sitio  →  reporte
+push a main  →  GitHub Actions (Ubuntu + Node 20)  →  npm ci  →  npm run build
+            →  verificación del build  →  deploy FTPS al document root  →  verificación del sitio
 ```
 
 Workflow: [.github/workflows/deploy.yml](.github/workflows/deploy.yml)
 
-## Por qué FTPS + GitHub Actions (y no la integración Git de Hostinger)
+## Configuración confirmada (producción)
 
-- El hosting compartido de Hostinger **no ejecuta `npm run build`**; su deploy por Git solo
-  clona archivos. Para una app Vite habría que commitear el `dist` (frágil y sucio).
-- **GitHub Actions** buildea en un entorno limpio y reproducible (Ubuntu + Node 20) y sube
-  **solo el resultado estático** por **FTPS** (cifrado).
-- El deploy es **incremental** (sube solo lo que cambió) → rápido y **sin downtime**.
-  Mantiene `.htaccess` y **elimina archivos obsoletos** vía el state-file del action
-  (`.ftp-deploy-sync-state.json` en el servidor).
+| Parámetro | Valor | Nota |
+|-----------|-------|------|
+| **FTP host** | `185.173.111.68` (IP) | ⚠️ **Usar la IP, no `ftp.amsarsalud.com`** — ese subdominio lo enruta Cloudflare y **no conecta por FTP**. |
+| **FTP user** | `u467229119.deployamsar` | Cuenta dedicada al deploy. |
+| **Document root** | `/home/u467229119/domains/amsarsalud.com/public_html` | `amsarsalud.com` es un dominio **addon**: su docroot está bajo `domains/`, NO en el `public_html` principal. |
+| **`server-dir`** | `./` | La cuenta FTP ya entra **directo** en el docroot. |
 
-## Secretos requeridos (GitHub → Settings → Secrets and variables → Actions)
+> **Trampa conocida (no repetir):** la cuenta FTP principal `u467229119` está chrooteada a
+> un `public_html` que **NO es** el del dominio. Deployar ahí "funciona" (verde) pero el sitio
+> **no cambia**, porque esa carpeta no se sirve. Por eso se creó la cuenta `u467229119.deployamsar`
+> anclada al docroot real. Tampoco usar `server-dir: public_html/` (crea un `public_html/public_html` anidado).
 
-| Secret | Qué es | Dónde se obtiene |
-|--------|--------|------------------|
-| `HOSTINGER_FTP_HOST` | Host/IP del FTP (ej. `ftp.amsarsalud.com` o la IP) | hPanel → Archivos → **Cuentas FTP** |
-| `HOSTINGER_FTP_USER` | Usuario FTP | hPanel → Cuentas FTP |
-| `HOSTINGER_FTP_PASSWORD` | Contraseña FTP | hPanel → Cuentas FTP (crear/restablecer) |
+## Por qué GitHub Actions + FTPS (y no la integración Git de Hostinger)
 
-> El build no necesita secretos: las variables `VITE_*` (públicas) viven en
-> [.env.production](.env.production) y se hornean en el bundle. **Nunca** poner secretos ahí.
+- El hosting compartido de Hostinger **no ejecuta `npm run build`**; su Git Auto Deploy solo clona
+  el repo → subiría **código fuente** (`index.html` → `/src/main.tsx`) y la web queda **en blanco**.
+  **No reactivar Git Auto Deploy.**
+- **GitHub Actions** buildea en entorno limpio y reproducible y sube **solo el estático** (`dist/public/`) por **FTPS** (cifrado).
+- Deploy **incremental** (solo lo cambiado) → rápido y **sin downtime**. Mantiene `.htaccess` y
+  elimina obsoletos vía el state-file del action (`.ftp-deploy-sync-state.json`).
 
-## Verificar `server-dir`
+## Secretos (GitHub → Settings → Secrets and variables → Actions)
 
-Por defecto el deploy apunta a `/public_html/`. Si la cuenta FTP de Hostinger ya está
-anclada al dominio (su carpeta raíz **es** `public_html`), cambiá `server-dir` a `./` en
-el workflow. Se ve en hPanel → Cuentas FTP → "Directorio".
+| Secret | Valor |
+|--------|-------|
+| `HOSTINGER_FTP_HOST` | `185.173.111.68` |
+| `HOSTINGER_FTP_USER` | `u467229119.deployamsar` |
+| `HOSTINGER_FTP_PASSWORD` | (contraseña de la cuenta FTP de deploy) |
+
+> El build **no** usa secretos: las `VITE_*` (públicas) viven en [.env.production](.env.production)
+> y se hornean en el bundle. **Nunca** poner secretos ahí.
 
 ## Operación
 
 - **Deploy normal:** `git push` a `main`.
-- **Deploy manual:** GitHub → pestaña **Actions** → "Deploy a Hostinger" → **Run workflow**.
-- **Ver estado:** pestaña Actions (verde = desplegado y verificado; rojo = falló, no tocó producción).
-- **Rollback:** `git revert <commit>` + push (re-despliega el estado anterior).
+- **Deploy manual:** GitHub → **Actions** → "Deploy a Hostinger" → **Run workflow**.
+- **Estado:** pestaña Actions (verde = desplegado y verificado; rojo = falló y NO tocó producción).
+- **Rollback:** `git revert <commit>` + push.
 
-## Limpieza total opcional (one-time)
+## Verificar un deploy contra el origin (bypass Cloudflare)
 
-Si quedaran archivos huérfanos de la subida manual previa, se puede hacer **una** corrida
-con `dangerous-clean-slate: true` en el step de deploy (vacía `public_html` y re-sube todo).
-Implica un instante sin archivos → usar solo fuera de horario pico. No es el modo por defecto.
+Como `cf-cache-status` puede confundir, verificar directo al IP:
+
+```bash
+# ¿qué bundle sirve el origin?
+curl -s -k --resolve amsarsalud.com:443:185.173.111.68 https://amsarsalud.com/ \
+  | grep -oE "/assets/index-[A-Za-z0-9_-]+\.js"
+```
+
+El workflow ya incluye un guard que **aborta** si el build no es válido o si `index.html`
+apunta a `/src/main.tsx` (imposible desplegar código fuente).
 
 ## Compatibilidad
 
-- **Cloudflare:** el deploy va directo al origin (Hostinger) por FTPS; no toca DNS ni el proxy.
-  El HTML se sirve `no-cache` (ver `.htaccess`), los assets con hash son inmutables. Si hiciera
-  falta, purgar caché de Cloudflare tras un cambio grande.
-- **Entorno local:** intacto. El pipeline corre en CI, no toca tu máquina.
+- **Cloudflare / DNS:** el deploy va directo al origin por FTPS; no toca DNS ni el proxy.
+  El HTML se sirve `no-cache` (ver `.htaccess`); los assets con hash son inmutables.
+  Tras un cambio grande, si hiciera falta, purgar caché de Cloudflare.
+- **Entorno local:** intacto. El pipeline corre en CI.
