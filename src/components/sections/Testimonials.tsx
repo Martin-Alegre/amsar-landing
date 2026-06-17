@@ -6,7 +6,7 @@ const testimonials = [
     name: "Lucía R.",
     age: 28,
     job: "Diseñadora gráfica",
-    text: "Pedí info un domingo a las 11 de la noche. Lunes 8 AM ya me habían respondido por WhatsApp. Cero vueltas.",
+    text: "No sabía qué obra social elegir. Me asesoraron por WhatsApp, resolvieron todas mis dudas y el trámite fue mucho más simple de lo que esperaba.",
     color: "from-blue-500 to-cyan-400",
   },
   {

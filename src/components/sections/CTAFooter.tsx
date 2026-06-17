@@ -21,7 +21,9 @@ Los enlaces a sitios de terceros son provistos a modo informativo. Amsar Salud n
 
 La información de contacto proporcionada en formularios será utilizada exclusivamente para gestionar tu consulta o afiliación.
 
-Para consultas sobre términos y condiciones de la cobertura médica, comunicarse con nuestro equipo: amsar.crm@gmail.com`,
+Para consultas sobre términos y condiciones de la cobertura médica, comunicarse con nuestro equipo: contacto@amsarsalud.com
+
+Los servicios promocionados en este sitio son comercializados por la Cooperativa de Trabajo Central Comercializadora Limitada (CUIT 30-71820875-7), con domicilio en Manzana 11, Edificio E, Barrio El Patronato, CP 1849, Provincia de Buenos Aires, en virtud del convenio de comercialización vigente con AMSAR — Asociación Mutual de Servicios Asistenciales Regionales.`,
   },
   {
     id: "privacidad",
@@ -38,9 +40,11 @@ Tus datos no serán vendidos, cedidos ni compartidos con terceros sin tu consent
 
 Utilizamos cookies técnicas para el funcionamiento del sitio. No utilizamos cookies de rastreo publicitario sin tu consentimiento.
 
-Tenés derecho a acceder, rectificar, actualizar y suprimir tus datos en cualquier momento. Para ejercer estos derechos, escribinos a: amsar.crm@gmail.com
+Tenés derecho a acceder, rectificar, actualizar y suprimir tus datos en cualquier momento. Para ejercer estos derechos, escribinos a: contacto@amsarsalud.com
 
-El titular del sitio es Amsar Salud. La información es tratada con medidas de seguridad técnicas y organizativas adecuadas para proteger tus datos.`,
+El titular del sitio es Amsar Salud. La información es tratada con medidas de seguridad técnicas y organizativas adecuadas para proteger tus datos.
+
+Los servicios promocionados en este sitio son comercializados por la Cooperativa de Trabajo Central Comercializadora Limitada (CUIT 30-71820875-7), con domicilio en Manzana 11, Edificio E, Barrio El Patronato, CP 1849, Provincia de Buenos Aires, en virtud del convenio de comercialización vigente con AMSAR — Asociación Mutual de Servicios Asistenciales Regionales.`,
   },
   {
     id: "consumidor",
@@ -51,7 +55,7 @@ El titular del sitio es Amsar Salud. La información es tratada con medidas de s
 Tenés derecho a recibir información clara, veraz y detallada sobre los servicios ofrecidos antes de cualquier contratación.
 
 Ante cualquier inconveniente o disconformidad con nuestro servicio, podés:
-• Contactarnos directamente: WhatsApp +54 9 11 7821-3869 o amsar.crm@gmail.com.
+• Contactarnos directamente: WhatsApp +54 9 11 7821-3869 o contacto@amsarsalud.com.
 • Presentar un reclamo ante la Dirección Nacional de Defensa del Consumidor.
 • Acceder al sistema nacional de arbitraje de consumo.
 
@@ -59,7 +63,7 @@ Nuestro compromiso de respuesta es de 1 hora hábil para consultas recibidas por
 
 La afiliación no genera costos ocultos. Cualquier modificación en los planes será notificada con la anticipación requerida por ley.
 
-Para ejercer tus derechos como consumidor o presentar una queja formal, escribinos a: amsar.crm@gmail.com`,
+Para ejercer tus derechos como consumidor o presentar una queja formal, escribinos a: contacto@amsarsalud.com`,
   },
 ];
 
@@ -84,7 +88,7 @@ function LegalAccordion({ item }: { item: typeof legalItems[0] }) {
       </button>
       <div
         className="overflow-hidden transition-all duration-300"
-        style={{ maxHeight: open ? "600px" : "0px", opacity: open ? 1 : 0 }}
+        style={{ maxHeight: open ? "900px" : "0px", opacity: open ? 1 : 0 }}
       >
         <div className="text-white/50 text-xs leading-relaxed pb-4 whitespace-pre-line pl-6">
           {item.content}
@@ -260,14 +264,17 @@ export default function CTAFooter() {
                     WhatsApp: +54 9 11 7821-3869
                   </a>
                 </li>
-                <li>Email: amsar.crm@gmail.com</li>
+                <li>Email: contacto@amsarsalud.com</li>
               </ul>
             </div>
           </div>
 
-          <div className="border-t border-white/10 pt-6 flex justify-center items-center">
+          <div className="border-t border-white/10 pt-6 flex flex-col justify-center items-center gap-1.5">
             <p className="text-white/40 text-sm text-center">
               © 2026 AMSAR — Asociación Mutual de Servicios Asistenciales Regionales. Todos los derechos reservados.
+            </p>
+            <p className="text-white/30 text-xs text-center">
+              AMSAR es comercializado por Cooperativa de Trabajo Central Comercializadora Limitada · CUIT 30-71820875-7
             </p>
           </div>
 

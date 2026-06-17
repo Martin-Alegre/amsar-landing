@@ -71,7 +71,7 @@ Copiar `.env.example` a `.env` y completar:
 ## Contacto
 
 - WhatsApp: +54 9 11 7821-3869
-- Email: amsar.crm@gmail.com
+- Email: contacto@amsarsalud.com
 - Web: https://amsarsalud.com.ar
 
 ## Cambios recientes
