@@ -4,11 +4,12 @@ name: Deploy a Hostinger (producción)
 #   push a main  ->  build de producción  ->  deploy FTPS a public_html  ->  verificación
 # Build: GitHub Actions (Ubuntu + Node 20). Deploy: FTPS con sync incremental
 # (sube solo lo cambiado, mantiene .htaccess y elimina obsoletos vía state-file).
+# Sube ÚNICAMENTE el build estático (dist/public). NUNCA código fuente.
 
 on:
   push:
     branches: [main]
-  workflow_dispatch: {}        # permite lanzar un deploy manual desde la pestaña Actions
+  workflow_dispatch: {}          # permite lanzar un deploy manual desde la pestaña Actions
 
 # Evita deploys solapados (sin downtime ni condiciones de carrera).
 concurrency:
@@ -35,16 +36,24 @@ jobs:
       - name: Build de producción
         run: npm run build
 
-      - name: Verificar artefactos del build
+      # Guard anti-regresión (objetivo 7): solo se despliega un build VÁLIDO,
+      # nunca código fuente. dist/public solo contiene el output estático.
+      - name: Verificar build (anti-deploy de código fuente)
         run: |
           set -e
-          test -f dist/public/index.html
-          test -f dist/public/.htaccess
-          test -d dist/public/assets
-          echo "Artefactos de build OK (index.html + .htaccess + assets/)"
+          test -f dist/public/index.html || { echo "::error::falta dist/public/index.html"; exit 1; }
+          test -f dist/public/.htaccess  || { echo "::error::falta dist/public/.htaccess"; exit 1; }
+          test -d dist/public/assets     || { echo "::error::falta dist/public/assets/"; exit 1; }
+          ls dist/public/assets/*.js >/dev/null 2>&1 || { echo "::error::no hay bundle JS en dist/public/assets/"; exit 1; }
+          if grep -q "/src/main.tsx" dist/public/index.html; then
+            echo "::error::index.html apunta a /src/main.tsx (código fuente). Build inválido. Abortando deploy."
+            exit 1
+          fi
+          grep -q "/assets/" dist/public/index.html || { echo "::error::index.html no referencia /assets/. Build inválido."; exit 1; }
+          echo "Build OK: index.html buildeado + assets + .htaccess. Seguro para deploy."
 
-      # Deploy por FTPS. local-dir = SOLO el contenido estático (no dist/boot.js).
-      # El .htaccess viaja dentro de dist/public, así que se mantiene en cada deploy.
+      # Deploy por FTPS. local-dir = SOLO el build estático: jamás sube src/, api/,
+      # package.json, node_modules ni dist/boot.js. El .htaccess viaja en dist/public.
       - name: Deploy a Hostinger (FTPS, sync incremental)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -54,12 +63,8 @@ jobs:
           protocol: ftps
           port: 21
           local-dir: ./dist/public/
-          # Ruta destino en el servidor. Caso típico de Hostinger (cuenta FTP
-          # principal): /public_html/. Si la cuenta FTP ya está anclada al
-          # dominio, puede ser ./  — verificar en hPanel > FTP Accounts.
-          server-dir: /public_html/
-          # NO usamos dangerous-clean-slate para evitar downtime. El sync
-          # incremental + state-file gestiona altas/bajas de archivos.
+          server-dir: public_html/
+          # Sin dangerous-clean-slate: evita downtime. El state-file gestiona altas/bajas.
           exclude: |
             **/.git*
             **/.git*/**
@@ -77,7 +82,7 @@ jobs:
             exit 1
           fi
           if curl -s -L https://amsarsalud.com/ | grep -q "Amsar Salud"; then
-            echo "✅ Sitio OK: responde 200 y sirve el contenido esperado."
+            echo "Sitio OK: responde 200 y sirve el contenido esperado."
           else
-            echo "::warning::200 OK pero no se encontró el texto esperado (¿caché de Cloudflare?)."
+            echo "::warning::200 OK pero no se encontró el texto esperado (posible caché de Cloudflare)."
           fi
