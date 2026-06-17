@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://amsarsalud.com.ar/sitemap.xml
+Sitemap: https://amsarsalud.com/sitemap.xml

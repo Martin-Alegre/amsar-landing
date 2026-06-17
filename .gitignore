@@ -39,3 +39,5 @@ build/
 # Test coverage
 coverage/
 .nyc_output/
+# Deploy artifacts (paquetes de subida manual; el deploy es por CI)
+*.zip

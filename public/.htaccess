@@ -1,0 +1,55 @@
+# ===========================================================================
+# AMSAR Salud — landing estática (Vite SPA) · Hostinger (LiteSpeed)
+# ===========================================================================
+
+# Evitar listado de directorios
+Options -Indexes
+
+# --- 1) Reescritura: forzar HTTPS + fallback SPA ---------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Forzar HTTPS. Loop-safe detrás de Cloudflare: solo redirige si NI el
+  # header X-Forwarded-Proto NI HTTPS indican una conexión segura.
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Fallback SPA: si la request NO es un archivo ni un directorio real,
+  # servir index.html para que React Router maneje la ruta (soporta refresh).
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ /index.html [L]
+</IfModule>
+
+# --- 2) Compresión ---------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml \
+    application/javascript application/json image/svg+xml
+</IfModule>
+
+# --- 3) Caché --------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  # JS/CSS/fuentes: Vite les pone hash de contenido → cache largo e inmutable
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/css              "access plus 1 year"
+  ExpiresByType font/woff2            "access plus 1 year"
+  # Imágenes / video (nombres estables en /public): cache moderado
+  ExpiresByType image/png  "access plus 7 days"
+  ExpiresByType image/jpeg "access plus 7 days"
+  ExpiresByType image/svg+xml "access plus 7 days"
+  ExpiresByType video/mp4  "access plus 7 days"
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Assets hasheados de Vite → inmutables
+  <FilesMatch "\.(js|css|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # index.html NUNCA cacheado (referencia los assets con hash)
+  <FilesMatch "^index\.html$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+</IfModule>

@@ -1,0 +1,83 @@
+name: Deploy a Hostinger (producción)
+
+# Pipeline de despliegue automático de la landing de AMSAR.
+#   push a main  ->  build de producción  ->  deploy FTPS a public_html  ->  verificación
+# Build: GitHub Actions (Ubuntu + Node 20). Deploy: FTPS con sync incremental
+# (sube solo lo cambiado, mantiene .htaccess y elimina obsoletos vía state-file).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}        # permite lanzar un deploy manual desde la pestaña Actions
+
+# Evita deploys solapados (sin downtime ni condiciones de carrera).
+concurrency:
+  group: deploy-hostinger-production
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Instalar dependencias (reproducible)
+        run: npm ci
+
+      # Gate de errores: si el build falla, el job falla y NO se despliega nada.
+      - name: Build de producción
+        run: npm run build
+
+      - name: Verificar artefactos del build
+        run: |
+          set -e
+          test -f dist/public/index.html
+          test -f dist/public/.htaccess
+          test -d dist/public/assets
+          echo "Artefactos de build OK (index.html + .htaccess + assets/)"
+
+      # Deploy por FTPS. local-dir = SOLO el contenido estático (no dist/boot.js).
+      # El .htaccess viaja dentro de dist/public, así que se mantiene en cada deploy.
+      - name: Deploy a Hostinger (FTPS, sync incremental)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.HOSTINGER_FTP_HOST }}
+          username: ${{ secrets.HOSTINGER_FTP_USER }}
+          password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          local-dir: ./dist/public/
+          # Ruta destino en el servidor. Caso típico de Hostinger (cuenta FTP
+          # principal): /public_html/. Si la cuenta FTP ya está anclada al
+          # dominio, puede ser ./  — verificar en hPanel > FTP Accounts.
+          server-dir: /public_html/
+          # NO usamos dangerous-clean-slate para evitar downtime. El sync
+          # incremental + state-file gestiona altas/bajas de archivos.
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+
+      - name: Verificar sitio en producción
+        run: |
+          set -e
+          echo "Verificando https://amsarsalud.com ..."
+          sleep 5
+          code=$(curl -s -o /dev/null -w "%{http_code}" -L https://amsarsalud.com/)
+          echo "HTTP status: $code"
+          if [ "$code" != "200" ]; then
+            echo "::error::El sitio no devolvió 200 (devolvió $code)"
+            exit 1
+          fi
+          if curl -s -L https://amsarsalud.com/ | grep -q "Amsar Salud"; then
+            echo "✅ Sitio OK: responde 200 y sirve el contenido esperado."
+          else
+            echo "::warning::200 OK pero no se encontró el texto esperado (¿caché de Cloudflare?)."
+          fi
