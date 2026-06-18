@@ -142,7 +142,7 @@ export default function CTAFooter() {
 
         <div className="cta-content relative z-10 section-padding max-w-4xl mx-auto text-center">
           <h2 className="text-white mb-6">
-            ¿Listo para una obra social que sí te responde?
+            ¿Listo para una red médica que sí te responde?
           </h2>
           <p className="text-white/70 text-lg mb-8">
             Atención humana real. En minutos.
@@ -179,7 +179,7 @@ export default function CTAFooter() {
                 <span className="font-bold text-lg text-white">Amsar</span>
               </div>
               <p className="text-white/60 text-sm leading-relaxed mb-4">
-                La obra social para monotributistas que sí responde.
+                La red médica de confianza para monotributistas que sí responde.
               </p>
               <div className="flex items-center gap-3">
                 <a

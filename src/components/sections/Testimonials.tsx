@@ -6,7 +6,7 @@ const testimonials = [
     name: "Lucía R.",
     age: 28,
     job: "Diseñadora gráfica",
-    text: "No sabía qué obra social elegir. Me asesoraron por WhatsApp, resolvieron todas mis dudas y el trámite fue mucho más simple de lo que esperaba.",
+    text: "No sabía bien qué cobertura elegir. Me asesoraron por WhatsApp, resolvieron todas mis dudas y el trámite fue mucho más simple de lo que esperaba.",
     color: "from-blue-500 to-cyan-400",
   },
   {
@@ -27,7 +27,7 @@ const testimonials = [
     name: "Diego T.",
     age: 39,
     job: "Fotógrafo",
-    text: "Cambié de obra social después de 3 años con otra que no me daba bola. Diferencia abismal.",
+    text: "Venía de 3 años con una obra social que no me daba bola. El cambio fue abismal.",
     color: "from-amber-500 to-orange-400",
   },
   {

@@ -20,7 +20,7 @@ const cards = [
   {
     icon: Wallet,
     title: "Una consulta + remedios = el alquiler.",
-    body: "Sin obra social, una emergencia básica te puede romper el mes. Y vos no podés frenar de trabajar.",
+    body: "Sin una buena cobertura, una emergencia básica te puede romper el mes. Y vos no podés frenar de trabajar.",
   },
 ];
 

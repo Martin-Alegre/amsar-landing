@@ -68,7 +68,7 @@ export default function Comparison() {
               Característica
             </div>
             <div className="bg-slate-50 p-4 font-semibold text-sm text-slate-500 text-center">
-              Otras obras sociales
+              Otras coberturas
             </div>
             <div className="bg-amsar-cyan/5 p-4 font-semibold text-sm text-amsar-deep text-center border-l border-amsar-cyan/20">
               Amsar

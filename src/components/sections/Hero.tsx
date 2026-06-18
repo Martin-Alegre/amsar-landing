@@ -179,8 +179,8 @@ export default function Hero() {
             className="text-white mb-6"
           >
             <span className="word inline-block">La</span>{" "}
-            <span className="word inline-block">obra</span>{" "}
-            <span className="word inline-block">social</span>{" "}
+            <span className="word inline-block">red</span>{" "}
+            <span className="word inline-block">médica</span>{" "}
             <span className="word inline-block">que</span>{" "}
             <span className="word inline-block">sí</span>{" "}
             <span className="word inline-block relative">
@@ -194,7 +194,7 @@ export default function Hero() {
             ref={subRef}
             className="text-lg sm:text-xl text-white/80 leading-relaxed max-w-2xl mb-8"
           >
-            Cobertura completa, telemedicina 24/7 y descuentos en +1.000 comercios. 
+            Tu red médica de confianza: cobertura completa, telemedicina 24/7 y descuentos en +1.000 comercios.
             Sin costo extra. Sin desaparecer cuando nos necesitás. 
             Hecho para monotributistas como vos.
           </p>

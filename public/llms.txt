@@ -1,6 +1,6 @@
 # Amsar Salud
 
-Amsar Salud es una obra social diseñada específicamente para monotributistas en Argentina. Ofrecemos cobertura PMO completa, telemedicina 24/7 a través de la app Mi Mutual, y descuentos en más de 1.000 comercios adheridos.
+Amsar Salud es una red médica de confianza diseñada específicamente para monotributistas en Argentina. Ofrecemos cobertura PMO completa, telemedicina 24/7 a través de la app Mi Mutual, y descuentos en más de 1.000 comercios adheridos.
 
 ## Propuesta de valor
 
@@ -26,11 +26,11 @@ CABA, GBA Sur y gran parte del interior. No incluye Bahía Blanca ni sur profund
 
 ## Secciones principales
 
-1. Hero — Obra social que sí responde
-2. Problema — Frustraciones comunes con otras obras sociales
+1. Hero — Red médica que sí responde
+2. Problema — Frustraciones comunes con otras coberturas
 3. Solución — Mi Mutual app + cobertura PMO
 4. Beneficios — 6 beneficios clave
-5. Comparativa — Amsar vs otras obras sociales
+5. Comparativa — Amsar vs otras coberturas
 6. App Mi Mutual — Demo interactivo
 7. Testimonios — Experiencias de monotributistas
 8. Oferta — Todo lo que incluye la afiliación

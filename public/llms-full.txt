@@ -2,7 +2,7 @@
 
 ## ¿Qué es Amsar Salud?
 
-Amsar Salud es una obra social para monotributistas en Argentina. La diferencia central es que respondemos por WhatsApp en menos de 1 hora con personas reales, no bots.
+Amsar Salud es una red médica de confianza para monotributistas en Argentina. La diferencia central es que respondemos por WhatsApp en menos de 1 hora con personas reales, no bots.
 
 ## Propuesta de valor completa
 
@@ -72,10 +72,10 @@ Nuestro compromiso es responder en menos de 1 hora hábil. Si no pasa, te pedimo
 
 ## Testimonios
 
-- Lucía R., 28, diseñadora gráfica: "No sabía qué obra social elegir. Me asesoraron por WhatsApp, resolvieron todas mis dudas y el trámite fue mucho más simple de lo que esperaba."
+- Lucía R., 28, diseñadora gráfica: "No sabía bien qué cobertura elegir. Me asesoraron por WhatsApp, resolvieron todas mis dudas y el trámite fue mucho más simple de lo que esperaba."
 - Federico M., 34, desarrollador: "La telemedicina me salvó dos veces este año. Resolví consultas sin moverme de casa."
 - Carla S., 31, consultora: "Tengo ahorros importantes solo en farmacia este año. Eso ya pagó la cuota."
-- Diego T., 39, fotógrafo: "Cambié de obra social después de 3 años con otra que no me daba bola. Diferencia abismal."
+- Diego T., 39, fotógrafo: "Venía de 3 años con una obra social que no me daba bola. El cambio fue abismal."
 - Sofía L., 26, copywriter: "La app es lo que más uso. Descuentos, turnos, todo desde el celular."
 - Martín P., 42, contador: "Soy monotributista hace 8 años y nunca me sentí tan bien atendido."
 
