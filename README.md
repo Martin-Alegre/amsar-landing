@@ -1,6 +1,6 @@
 # Amsar Salud — Landing Page Premium
 
-Landing page de alta conversión para Amsar Salud. Obra social para monotributistas en Argentina.
+Landing page de alta conversión para Amsar Salud. Red médica de confianza para monotributistas en Argentina.
 
 - **Producción:** https://amsarsalud.com
 - **Deploy:** automático — GitHub Actions → build → FTPS → Hostinger (ver [DEPLOYMENT.md](DEPLOYMENT.md))
@@ -79,6 +79,7 @@ Las que realmente usa el build (públicas, se hornean en el bundle) viven en [.e
 
 ## Cambios recientes
 
+- **Reposicionamiento (legal/marca)**: AMSAR pasa de "obra social" a **"red médica de confianza"** en todo el sitio — headline **"La red médica que sí te responde"**, subtítulo, CTA, footer, secciones, SEO (`title`/OG/Twitter/JSON-LD) y `llms.txt`. Se **conserva** "obra social" solo donde refiere a la del **usuario** (traspaso en FAQ, relación de dependencia, testimonio). AMSAR ya no se autodenomina obra social (es una mutual).
 - **Email de display** → `contacto@amsarsalud.com` (footer, textos legales, llms). El form sigue enviando al webhook de n8n.
 - **Footer**: línea de comercializadora (Cooperativa de Trabajo Central Comercializadora Ltda · CUIT 30-71820875-7).
 - **Legal**: bloque de comercialización al final de "Términos y Condiciones" y de "Privacidad".
