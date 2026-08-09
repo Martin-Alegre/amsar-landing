@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import Home from './pages/Home'
 
 export default function App() {
@@ -9,8 +10,11 @@ export default function App() {
   }, []);
 
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+      <SpeedInsights />
+    </>
   )
 }
