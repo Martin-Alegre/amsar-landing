@@ -8,6 +8,28 @@ import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 const WEBHOOK_URL = import.meta.env.VITE_WEBHOOK_URL as string;
 
+// Línea de WhatsApp de Amsar (la misma de todos los botones de la web).
+const WA_NUMERO = "5491178213869";
+
+// Después del formulario la persona sigue por WhatsApp con el mensaje ya escrito (2026-10-11, igual que Medicenter).
+// La referencia (Ref. W-XXXXX) es la que el flujo de la IA usa para unir el chat con la fila del formulario.
+function armarLinkWa(d: LeadInput, ref: string) {
+  const cat = d.categoriaMonotributo;
+  const situacion = !cat
+    ? ""
+    : cat === "No estoy seguro"
+      ? " y soy monotributista (no sé mi categoría)"
+      : ` y soy monotributista (categoría ${cat})`;
+  const lineas = [
+    "Hola, vengo de la web de Amsar Salud y quiero que me asesoren.",
+    `Soy ${d.nombre}, tengo ${d.edad} años${situacion}.`,
+    d.provincia ? `Provincia: ${d.provincia}.` : "",
+    `Mi mail es ${d.email}.`,
+    ref ? `(Ref. ${ref})` : "",
+  ].filter(Boolean);
+  return `https://api.whatsapp.com/send/?phone=${WA_NUMERO}&text=${encodeURIComponent(lineas.join("\n"))}`;
+}
+
 const provincias = [
   "Buenos Aires", "CABA", "Catamarca", "Chaco", "Chubut", "Córdoba", "Corrientes",
   "Entre Ríos", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones",
@@ -25,6 +47,7 @@ export default function Formulario() {
   const [isPending, setIsPending] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [submittedName, setSubmittedName] = useState("");
+  const [linkWa, setLinkWa] = useState("");
 
   const {
     register,
@@ -49,6 +72,7 @@ export default function Formulario() {
         ? await executeRecaptcha("amsar_form_submit")
         : undefined;
 
+      const params = new URLSearchParams(window.location.search);
       const res = await fetch(WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -61,14 +85,34 @@ export default function Formulario() {
           provincia: data.provincia || null,
           acceptComms: data.acceptComms,
           source: "landing",
+          utm_source: params.get("utm_source") || "",
+          utm_medium: params.get("utm_medium") || "",
+          utm_campaign: params.get("utm_campaign") || "",
+          utm_content: params.get("utm_content") || "",
+          utm_term: params.get("utm_term") || "",
+          fbclid: params.get("fbclid") || "",
+          source_url: window.location.href,
           recaptchaToken,
         }),
       });
 
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const resp = await res.json().catch(() => ({}));
+      const link = armarLinkWa(data, String(resp?.ref || ""));
+
+      // Medición, igual que Medicenter: Lead / generate_lead al confirmarse el envío, Contact / contact_whatsapp al pasar a WhatsApp.
+      const w = window as unknown as { fbq?: (...a: unknown[]) => void; gtag?: (...a: unknown[]) => void };
+      w.fbq?.("track", "Lead");
+      w.gtag?.("event", "generate_lead", { form: "landing_amsar" });
 
       setSubmittedName(data.nombre);
+      setLinkWa(link);
       setSubmitted(true);
+      window.setTimeout(() => {
+        w.fbq?.("track", "Contact");
+        w.gtag?.("event", "contact_whatsapp", { origen: "formulario" });
+        window.location.href = link;
+      }, 2200);
       confetti({
         particleCount: 50,
         spread: 60,
@@ -94,15 +138,16 @@ export default function Formulario() {
             ¡Gracias, {submittedName}!
           </h3>
           <p className="text-slate-600 mb-8">
-            Nos contactaremos pronto para confirmar tu afiliación.
+            Te llevamos a WhatsApp con tu consulta ya escrita. Mandá el mensaje y una asesora sigue con vos.
           </p>
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          <a
+            href={linkWa}
             className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all"
             style={{ backgroundColor: "#25D366" }}
           >
-            Volver al inicio
-          </button>
+            <MessageCircle className="w-5 h-5" />
+            Abrir WhatsApp
+          </a>
         </div>
       </section>
     );
